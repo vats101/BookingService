@@ -2,7 +2,7 @@ const  {StatusCodes}= require('http-status-codes')
 
 
 class ServiceError extends Error{
-    constructor(error){
+    constructor(explanation){
         super();
         this.name="ServiceError";
         this.message="Server error encountered.";
