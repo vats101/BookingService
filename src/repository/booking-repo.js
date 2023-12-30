@@ -1,6 +1,6 @@
-const { ValidationError } = require('../utils/errors/validation-error');
+const ValidationError  = require('../utils/errors/validation-error');
 const {Booking} = require('../models/index');
-const {ServiceError} = require('../utils/errors/service-error')
+const ServiceError = require('../utils/errors/service-error')
 class BookingRepo{
     async create(data){
         try{
@@ -15,6 +15,22 @@ class BookingRepo{
         }
     }
 
+    async update(id,data){
+        try{
+            const booking=await Booking.findByPk(id);
+            if(data.status){
+                booking.status=data.status
+            }
+            await booking.save();
+            return booking; 
+        }
+        catch(error){
+            if(error.name=='SequelizeValidationError'){
+                throw new ValidationError(error);
+            }
+            throw new ServiceError("Due to some internal server issue unable to create booking.");
+        }
+    }
 }
 
 module.exports=BookingRepo;

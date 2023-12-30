@@ -18,6 +18,9 @@ class BookingService{
             let totalCost=flightData.price*data.numberOfSeats;
             const bookingPayload={...data,totalCost};  //obj destructuring to add properties.
             const booking=this.bookingRepo.create(bookingPayload);
+            await axios.default.patch(`http://localhost:3000/api/v1/flight/${flightId}`,{totalSeats:flightData.totalSeats-data.numberOfSeats});
+            const updatedBooking=await this.bookingRepo.update(booking.id,{status:'Booked'});
+            return updatedBooking;
         }
         catch(error){
             if(error.name=="RepositoryError" || error.name=="ValidationError"){
@@ -26,5 +29,6 @@ class BookingService{
             throw new ServiceError()
         }
      }
+
 }
 module.exports=BookingService;
