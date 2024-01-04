@@ -1,9 +1,15 @@
 const express= require('express');
 const router=express.Router();
-const {create,get,update,getAll,destroy}=require('../../controller/booking-controller')
+const BookingController=require('../../controller/booking-controller')
 
-router.post('/booking',create);
-router.get('/booking/:id',get);
+
+const bookingController = new BookingController();
+
+router.post('/bookings',bookingController.create);
+router.get('/booking/:id',bookingController.get);
+router.post('/publish',bookingController.sendMessageToQueue);
+
 
 module.exports=router;
 
+ 
