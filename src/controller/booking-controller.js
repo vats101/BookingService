@@ -9,16 +9,6 @@ class BookingController{
     constructor(){
     }
 
-    async sendMessageToQueue(req,res){
-        console.log("asdasd")
-        const channel=await createChannel();
-        publishMessage(channel,REMINDER_BINDING_KEY);
-        return res.status(200).json({
-            message:'Successfully published the event.',
-            error:{}
-        })
-    }
-
     async create(req,res){
         try{
             const booking = await bookingService.create(req.body);

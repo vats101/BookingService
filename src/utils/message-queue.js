@@ -30,10 +30,10 @@ const subscribeMessage=async(channel,binding_key)=>{
     }
 }
 
-const publishMessage=async(channel,binding_key)=>{
+const publishMessage=async(channel,binding_key,msg)=>{
     try{
         await channel.assertQueue('tasks');
-        await channel.publish(EXCHANGE_NAME,binding_key,Buffer.from('success'));
+        await channel.publish(EXCHANGE_NAME,binding_key,Buffer.from(msg));
     }catch(error){
         console.log("Error in publishing ",error);
     }

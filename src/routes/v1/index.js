@@ -6,8 +6,9 @@ const BookingController=require('../../controller/booking-controller')
 const bookingController = new BookingController();
 
 router.post('/bookings',bookingController.create);
-router.get('/booking/:id',bookingController.get);
-router.post('/publish',bookingController.sendMessageToQueue);
+router.get('/bookings/:id',bookingController.get);
+
+// router.post('/publish',bookingController.sendMessageToQueue);
 
 
 module.exports=router;
